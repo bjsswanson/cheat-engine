@@ -6,7 +6,7 @@ jobs:
     runs-on: windows-latest
     strategy:
       matrix:
-        build-mode: ["Release 64-Bit", "Release 64-Bit O4 AVX2"]
+        build-mode: ["Release 64-Bit"]
     steps:
     - uses: actions/checkout@v2
     - name: Install Lazarus
