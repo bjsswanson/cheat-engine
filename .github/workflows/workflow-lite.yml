@@ -1,0 +1,22 @@
+name: build
+on:
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        build-mode: ["Release 64-Bit"]
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install Lazarus
+      uses: gcarreno/setup-lazarus@v3.0.2
+      with:
+        lazarus-version: "2.0.10"
+    - name: Build the Main Application
+      run: lazbuild -B "Cheat Engine/cheatengine.lpi" --cpu=x86_64 --build-mode="${{ matrix.build-mode }}"
+    - name: Upload the Application
+      uses: actions/upload-artifact@v2
+      with:
+        name: build-${{ matrix.build-mode }}
+        path: "Cheat Engine/bin"
